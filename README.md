@@ -17,3 +17,8 @@ Orange Pi Zero: From the zip file, copy file `orangepi_zero.uImage` to SDCard as
 
 NanoPi NEO: From the zip file, copy file `nanopi_neo.uImage` to SDCard as `uImage`
 
+All implementations are fully according to the standards.
+
+Detailed information can be found here : [http://www.raspberrypi-dmx.org](http://www.raspberrypi-dmx.org)
+
+> Special thanks to [@trebisky](https://github.com/trebisky/orangepi) (Thomas J. Trebisky), who helped me in understanding the H3 SoC. 
