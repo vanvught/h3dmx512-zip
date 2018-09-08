@@ -4,6 +4,8 @@ U-Boot images for Allwinner H2+/H3
 
 U-Boot Orange Pi Zero: [uboot-orangpi_zero.img.zip](https://github.com/vanvught/h3dmx512-zip/blob/master/uboot-orangpi_zero.img.zip?raw=true)
 
+U-Boot Orange Pi One: [uboot-orangpi_one.img.zip](https://github.com/vanvught/h3dmx512-zip/blob/master/uboot-orangpi_one.img.zip?raw=true) 
+
 U-Boot NanoPi NEO: [uboot-nanopi_neo.img.zip](https://github.com/vanvught/h3dmx512-zip/blob/master/uboot-nanopi_neo.img.zip?raw=true) 
 
 uImage's:
@@ -22,6 +24,8 @@ Current limitation Ethernet versions:
 
 
 Orange Pi Zero: From the zip file, copy file `orangepi_zero.uImage` to SDCard as `uImage`
+
+Orange Pi One: From the zip file, copy file `orangepi_one.uImage` to SDCard as `uImage` {*Art-Net 3 Ethernet DMX/RDM only*}
 
 NanoPi NEO: From the zip file, copy file `nanopi_neo.uImage` to SDCard as `uImage`
 
