@@ -8,3 +8,13 @@
 ._.DS*
 
 ._*
+
+#Eagle
+zero_board.b#*
+zero_board.c*
+zero_board.d*
+zero_board.g*
+zero_board.p*
+zero_board.s#*
+zero_board.so*
+zero_board.st*
