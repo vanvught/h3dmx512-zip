@@ -3,9 +3,9 @@
 
 **First time setup**: Select the uboot-*.img.zip for your board. Unzip the file and use an img writer; for example [Etcher](https://etcher.io).
 
-U-Boot Orange Pi Zero: [uboot-orangpi_zero.img.zip](https://github.com/vanvught/h3dmx512-zip/blob/master/uboot-orangpi_zero.img.zip?raw=true)
+U-Boot Orange Pi Zero: [uboot-orangpi_zero.zip](https://github.com/vanvught/h3dmx512-zip/blob/master/uboot-orangpi_zero.zip?raw=true)
 
-U-Boot Orange Pi One: [uboot-orangpi_one.img.zip](https://github.com/vanvught/h3dmx512-zip/blob/master/uboot-orangpi_one.img.zip?raw=true) 
+U-Boot Orange Pi One: [uboot-orangpi_one.zip](https://github.com/vanvught/h3dmx512-zip/blob/master/uboot-orangpi_one.zip?raw=true) 
 
 uImage's:
 
@@ -24,13 +24,15 @@ uImage's:
 
 Current limitation Ethernet versions: All nodes must be in the same network 
 
+<br>
 **SDCard uImage**
 
 Orange Pi Zero: From the zip file, copy file `orangepi_zero.uImage` to SDCard as `uImage`
 
 Orange Pi One: From the zip file, copy file `orangepi_one.uImage` to SDCard as `uImage`
 
-**SPI flash configuration / installation**
+<br>
+**SPI flash configuration / installation** {Not needed with the latest `uboot-orangepi_*.zip` files} 
 
 From [uboot-spi.zip](https://github.com/vanvught/h3dmx512-zip/blob/master/uboot-spi.zip?raw=true), copy `spiflash.txt` to SDCard
 
@@ -43,4 +45,5 @@ All implementations are fully according to the standards.
 
 Detailed information can be found here : [http://www.orangepi-dmx.org](http://www.orangepi-dmx.org)
 
+<br>
 > Special thanks to [@trebisky](https://github.com/trebisky/orangepi) (Thomas J. Trebisky), who helped me in understanding the H3 SoC. 
