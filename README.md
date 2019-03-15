@@ -1,13 +1,19 @@
-#U-Boot images for Allwinner H2+/H3
-## Orange Pi Zero / Orange Pi One
+# Orange Pi Zero / Orange Pi One
+## U-Boot
 
 **First time setup**: Select the uboot-*.img.zip for your board. Unzip the file and use an img writer; for example [Etcher](https://etcher.io).
 
 U-Boot Orange Pi Zero: [uboot-orangpi_zero.zip](https://github.com/vanvught/h3dmx512-zip/blob/master/uboot-orangpi_zero.zip?raw=true)
 
-U-Boot Orange Pi One: [uboot-orangpi_one.zip](https://github.com/vanvught/h3dmx512-zip/blob/master/uboot-orangpi_one.zip?raw=true) 
+U-Boot Orange Pi One: [uboot-orangpi_one.zip](https://github.com/vanvught/h3dmx512-zip/blob/master/uboot-orangpi_one.zip?raw=true)
 
-uImage's:
+**Update SPI flash** 
+
+Orange Pi Zero: From [uboot-spi.zip](https://github.com/vanvught/h3dmx512-zip/blob/master/uboot-spi.zip?raw=true), copy file `uboot_zero.spi` to SDCard as `uboot.spi`
+
+Orange Pi One: From [uboot-spi.zip](https://github.com/vanvught/h3dmx512-zip/blob/master/uboot-spi.zip?raw=true), copy file `uboot_one.spi` to SDCard as `uboot.spi` 
+
+## Firmware uImage
 
 
 - **Art-Net 3 Ethernet** DMX Node / **RDM** Controller / **Pixel (WS28xx/SK6812) controller** {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_artnet_dmx.zip?raw=true)}
@@ -24,23 +30,11 @@ uImage's:
 
 Current limitation Ethernet versions: All nodes must be in the same network 
 
-<br>
-
 **SDCard uImage**
 
 Orange Pi Zero: From the zip file, copy file `orangepi_zero.uImage` to SDCard as `uImage`
 
 Orange Pi One: From the zip file, copy file `orangepi_one.uImage` to SDCard as `uImage`
-
-<br>
-
-**SPI flash configuration / installation** {Not needed with the latest `uboot-orangepi_*.zip` files} 
-
-From [uboot-spi.zip](https://github.com/vanvught/h3dmx512-zip/blob/master/uboot-spi.zip?raw=true), copy `spiflash.txt` to SDCard
-
-Orange Pi Zero: From [uboot-spi.zip](https://github.com/vanvught/h3dmx512-zip/blob/master/uboot-spi.zip?raw=true), copy file `uboot_zero.spi` to SDCard as `uboot.spi`
-
-Orange Pi One: From [uboot-spi.zip](https://github.com/vanvught/h3dmx512-zip/blob/master/uboot-spi.zip?raw=true), copy file `uboot_one.spi` to SDCard as `uboot.spi`
 
 <br>
 
