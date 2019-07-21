@@ -32,6 +32,7 @@ Orange Pi One: From [uboot-spi.zip](https://github.com/vanvught/h3dmx512-zip/blo
 - **Art-Net 3 Wifi** DMX Node / RDM Controller / Pixel (WS28xx/SK6812/AP102/UCSx903) controller {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/h3_wifi_artnet_dmx.zip?raw=true)} {*Orange Pi Zero*}
 - **sACN E1.31 Wifi** DMX Bridge  / Pixel (WS28xx/SK6812/AP102/UCSx903) controller {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/h3_wifi_e131_dmx.zip?raw=true)} {*Orange Pi Zero*}
 - **OSC Wifi** DMX Bridge / Pixel (WS28xx/SK6812/AP102/UCSx903) controller {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/h3_wifi_osc_dmx.zip?raw=true)} {*Orange Pi Zero*}
+- **MIDI** Sniffer {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_midi_sniffer.zip?raw=true)}  {*Orange Pi One*}
 
 Current limitation Ethernet versions: All nodes must be in the same network 
 
