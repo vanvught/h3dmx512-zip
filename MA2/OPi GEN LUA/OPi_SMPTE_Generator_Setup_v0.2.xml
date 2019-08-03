@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MA xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.malighting.de/grandma2/xml/MA" xsi:schemaLocation="http://schemas.malighting.de/grandma2/xml/MA http://schemas.malighting.de/grandma2/xml/3.1.2/MA.xsd" major_vers="3" minor_vers="1" stream_vers="2">
+	<Info datetime="2019-07-25T09:49:05" showfile="SEXYLITES BUCKY" />
+	<Plugin index="1" execute_on_load="0" name="OPi SMPTE Generator Setup v0.2" luafile="OPi_SMPTE_Generator_Setup_v0.2.lua" />
+</MA>
