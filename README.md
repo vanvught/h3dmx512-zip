@@ -1,5 +1,7 @@
 # Orange Pi Zero / Orange Pi One
-## U-Boot
+Open Source and Open Hardware.
+<br>
+## SDCard
 
 **First time setup**: Select the uboot-*.zip for your board. Unzip the file and use an img writer; for example [Etcher](https://etcher.io).
 
@@ -37,7 +39,7 @@ Orange Pi One: From the zip file, copy file `orangepi_one.uImage` to SDCard as `
   * RDM Responder / **DMX Pixel (WS28xx/SK6812/AP102/UCSx903) controller** {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/h3_rdm_responder.zip?raw=true)}
 * **DMX**
   * **Real-time Monitor** {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_dmx_monitor.zip?raw=true)} {*Orange Pi One*}
-*  **SMPTE LTC**
+* **SMPTE LTC**
   * **SMPTE Timecode** LTC Reader / Writer / Generator {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_ltc_smpte.zip?raw=true)}  {*Orange Pi Zero*}
 * **MIDI**
   * **MIDI** Sniffer {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_midi_sniffer.zip?raw=true)}  {*Orange Pi One*}
