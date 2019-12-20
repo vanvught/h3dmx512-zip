@@ -17,9 +17,9 @@ Orange Pi One: From [uboot-spi.zip](https://github.com/vanvught/h3dmx512-zip/blo
 
 **Firmware uImage**
 
-Orange Pi Zero: From the zip file, copy file `orangepi_zero.uImage` to SDCard as `uImage`
+Orange Pi Zero: From the zip file, copy file `orangepi_zero.uImage.gz` to the SDCard as `uImage`
 
-Orange Pi One: From the zip file, copy file `orangepi_one.uImage` to SDCard as `uImage`
+Orange Pi One: From the zip file, copy file `orangepi_one.uImage.gz` to the SDCard as `uImage`
 
 ## Firmware uImage
 
@@ -35,12 +35,12 @@ Orange Pi One: From the zip file, copy file `orangepi_one.uImage` to SDCard as `
          *  4 Ports {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_artnet_dmx_multi.zip?raw=true)} {*Orange Pi One*}
       * **Real-time Monitor** 1 Universe {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_artnet_monitor.zip?raw=true)} {*Orange Pi One - HDMI output*}
      * Stepper controller L6470 **RDM**
-         * Sparkfun AutoDriver chaining {*tbd*} {*Orange Pi Zero*}
-         * Roboteurs SlushEngine Model X LT  {*tbd*} {*Orange Pi One*}
+         * Sparkfun AutoDriver chaining {*Orange Pi Zero*}
+         * Roboteurs SlushEngine Model X LT {*Orange Pi One*}
   * **sACN E1.31** 
-      * Pixel Controller **WS28xx/SK6812/AP102/UCSx903** [Orange Pi Zero]
+      * Pixel Controller **WS28xx/SK6812/APA102/UCSx903** [Orange Pi Zero]
          *  1x 4 Universes {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_e131_dmx.zip?raw=true)}
-         *  4x 4 Universes {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_e131_pixel_multi.zip?raw=true)} {*Orange Pi Zero*}
+         *  4x 4 Universes {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_e131_pixel_multi.zip?raw=true)} 
          *  8x 4 Universes {*tbd*}
       * DMX Bridge
          *  1 Ports {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_e131_dmx.zip?raw=true)} {*Orange Pi Zero*}
@@ -48,25 +48,25 @@ Orange Pi One: From the zip file, copy file `orangepi_one.uImage` to SDCard as `
          *  4 Ports {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_e131_dmx_multi.zip?raw=true)} {*Orange Pi One*}
       * **Real-time Monitor** 1 Universe {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_e131_monitor.zip?raw=true)} {*Orange Pi One - HDMI output*}
   * **OSC** 
-      * DMX Bridge / **Pixel Controller (WS28xx/SK6812/AP102/UCSx903)** {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_osc_dmx.zip?raw=true)}
+      * DMX Bridge / **Pixel Controller (WS28xx/SK6812/APA102/UCSx903)** {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_osc_dmx.zip?raw=true)}
       * **Client** with support for buttons {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_osc_client.zip?raw=true)}
       * **Real-time Monitor** 1 Universe {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_osc_monitor.zip?raw=true)} {*Orange Pi One - HDMI output*}
 * **RDM** 
   * Controller with USB [Compatible with **Enttec USB Pro protocol**] {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_dmx_usb_pro.zip?raw=true)} {*Orange Pi Zero*}
-  * Responder / **DMX Pixel Controller (WS28xx/SK6812/AP102/UCSx903)** {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/h3_rdm_responder.zip?raw=true)} {*Orange Pi Zero*}
+  * Responder / **DMX Pixel Controller (WS28xx/SK6812/APA102/UCSx903)** {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/h3_rdm_responder.zip?raw=true)} {*Orange Pi Zero*}
   * Stepper controller L6470
-     * Sparkfun AutoDriver chaining {*tbd*} {*Orange Pi Zero*}
-     * Roboteurs SlushEngine Model X LT {*tbd*} {*Orange Pi One*}
+     * Sparkfun AutoDriver chaining {*Orange Pi Zero*}
+     * Roboteurs SlushEngine Model X LT {*Orange Pi One*}
 * **DMX**
   * **Real-time Monitor** {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_dmx_monitor.zip?raw=true)} {*Orange Pi One - HDMI output*}
 * **SMPTE LTC**
   * **LTC SMPTE Timecode** Reader / Writer / Generator {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_ltc_smpte.zip?raw=true)}  {*Orange Pi Zero*}
 * **MIDI**
-  *  **Real-time Monitor** {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_midi_monitor.zip?raw=true)}  {*Orange Pi One*}
+  *  **Real-time Monitor** {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_midi_monitor.zip?raw=true)}  {*Orange Pi One - HDMI output*}
 * **Wifi**
-  * **Art-Net 3** DMX Node / RDM Controller / Pixel Controller (WS28xx/SK6812/AP102/UCSx903) {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/h3_wifi_artnet_dmx.zip?raw=true)} {*Orange Pi Zero*}
-  * **sACN E1.31** DMX Bridge  / Pixel Controller (WS28xx/SK6812/AP102/UCSx903) {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/h3_wifi_e131_dmx.zip?raw=true)} {*Orange Pi Zero*}
-  * **OSC** DMX Bridge / Pixel Controller (WS28xx/SK6812/AP102/UCSx903) {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/h3_wifi_osc_dmx.zip?raw=true)} {*Orange Pi Zero*}
+  * **Art-Net 3** DMX Node / RDM Controller / Pixel Controller (WS28xx/SK6812/APA102/UCSx903) {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/h3_wifi_artnet_dmx.zip?raw=true)} {*Orange Pi Zero*}
+  * **sACN E1.31** DMX Bridge  / Pixel Controller (WS28xx/SK6812/APA102/UCSx903) {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/h3_wifi_e131_dmx.zip?raw=true)} {*Orange Pi Zero*}
+  * **OSC** DMX Bridge / Pixel Controller (WS28xx/SK6812/APA102/UCSx903) {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/h3_wifi_osc_dmx.zip?raw=true)} {*Orange Pi Zero*}
 
 Current limitation Ethernet versions: All nodes must be in the same network 
 
