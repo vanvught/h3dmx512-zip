@@ -5,7 +5,10 @@
 -- github: https://github.com/vanvught/h3dmx512-zip
 -- website: http://www.orangepi-dmx.org/orange-pi-smpte-timecode-ltc-reader-converter/tcnet
 --
--- Done : OptIn, Status, Time
+-- Done : OptIn, OptOut, Status, Time
+-- Todo : TimeSync, ErrorNotification, Request, Application, Control, TextData, KeyboardData, Data, DataFile
+--
+-- TCNet specification V3.3.3 11/11/2019
 ----------------------------------------
 
 local tcnet_proto = Proto("tcnet","TCNet Protocol")
@@ -20,6 +23,9 @@ local message_types = {
 	[30] = "Application",
 	[101] = "Control",
 	[128] = "TextData", 
+	[132] = "KeyboardData", 
+	[200] = "Data", 
+	[204] = "DataFile", 
 	[254] = "Time",
 }
 
@@ -73,14 +79,18 @@ local node_type = ProtoField.uint8("tcnet.management.nodetype", "Node Type", bas
 local node_options = ProtoField.uint16("tcnet.management.nodeoptions", "Node Options", base.DEC)
 local time_stamp = ProtoField.uint32("tcnet.management.timestamp", "Time Stamp", base.DEC)
 
--- OptIn fields
+-- TCNet Opt-IN Packet fields
 local optin_node_count = ProtoField.uint16("tcnet.optin.nodecount", "Node Count", base.DEC)
 local optin_listener_port = ProtoField.uint16("tcnet.optin.listenerport", "Listener Port", base.DEC)
 local optin_uptime = ProtoField.uint16("tcnet.optin.uptime", "Uptime", base.DEC)
 local optin_vendor_name = ProtoField.string("tcnet.optin.vendorname", "Vendor Name", base.ASCII)
 local optin_device_name = ProtoField.string("tcnet.optin.devicename", "Device Name", base.ASCII)
 
--- Status fields
+-- TCNet Opt-OUT Packet fields
+local optout_node_count = ProtoField.uint16("tcnet.optout.nodecount", "Node Count", base.DEC)
+local optout_listener_port = ProtoField.uint16("tcnet.optout.listenerport", "Listener Port", base.DEC)
+
+-- TCNet Status Packet fields
 local status_node_count = ProtoField.uint16("tcnet.status.nodecount", "Node Count", base.DEC)
 local status_listener_port = ProtoField.uint16("tcnet.status.listenerport", "Listener Port", base.DEC)
 --
@@ -123,7 +133,15 @@ local status_layerb_name = ProtoField.string("tcnet.status.layerbname", "B", bas
 local status_layerm_name = ProtoField.string("tcnet.status.layermname", "M", base.ASCII)
 local status_layerc_name = ProtoField.string("tcnet.status.layercname", "C", base.ASCII)
 
--- Time fields
+-- TCNet Application Specific Data Packet fields
+local application_dataidentifier1 = ProtoField.uint8("tcnet.application.dataidentifier1", "Data Identifier 1", base.DEC);
+local application_dataidentifier2 = ProtoField.uint8("tcnet.application.dataidentifier2", "Data Identifier 2", base.DEC);
+local application_datasize = ProtoField.uint32("tcnet.application.datasize", "Data Size", base.DEC)
+local application_totalpackets = ProtoField.uint32("tcnet.application.totalpackets", "Total Packets", base.DEC)
+local application_packetno = ProtoField.uint32("tcnet.application.packetno", "Packet No", base.DEC)
+local application_packetsignature = ProtoField.uint32("tcnet.application.packetsignature", "Packet Signature", base.DEC)
+
+-- TCNet Time Packet fields
 local time_l1_time = ProtoField.uint32("tcnet.time.l1time", "1", base.DEC)
 local time_l2_time = ProtoField.uint32("tcnet.time.l2time", "2", base.DEC)
 local time_l3_time = ProtoField.uint32("tcnet.time.l3time", "3", base.DEC)
@@ -190,15 +208,17 @@ local time_lm_onair = ProtoField.uint8("tcnet.time.lmonair", "M", base.DEC)
 local time_lc_onair = ProtoField.uint8("tcnet.time.lconair", "C", base.DEC) 
 
 tcnet_proto.fields = { 
-	node_id, header, message_type, node_name, seq, node_type, node_options, time_stamp,  							-- Management Header
-	optin_node_count, optin_listener_port, optin_uptime, optin_vendor_name, optin_device_name,						-- OptIn Fields
-	status_node_count, status_listener_port, 																		-- Status Fields
+	node_id, header, message_type, node_name, seq, node_type, node_options, time_stamp,  																			-- Management Header
+	optin_node_count, optin_listener_port, optin_uptime, optin_vendor_name, optin_device_name,																		-- OptIn Fields
+	optout_node_count, optout_listener_port,																														-- OptOut Fields
+	status_node_count, status_listener_port, 																														-- Status Fields
 	status_layer1_source, status_layer2_source, status_layer3_source, status_layer4_source, status_layera_source, status_layerb_source, status_layerm_source, status_layerc_source,
 	status_layer1_status, status_layer2_status, status_layer3_status, status_layer4_status, status_layera_status, status_layerb_status, status_layerm_status, status_layerc_status,
 	status_layer1_trackid, status_layer2_trackid, status_layer3_trackid, status_layer4_trackid, status_layera_trackid, status_layerb_trackid, status_layerm_trackid, status_layerc_trackid,
 	status_smpte_mode, status_auto_master_mode,
 	status_layer1_name, status_layer2_name, status_layer3_name, status_layer4_name, status_layera_name, status_layerb_name, status_layerm_name, status_layerc_name,
-	time_l1_time, time_l2_time, time_l3_time, time_l4_time, time_la_time, time_lb_time, time_lm_time, time_lc_time, -- Time fields
+	application_dataidentifier1, application_dataidentifier2, application_datasize, application_totalpackets, application_packetno, application_packetsignature,	-- Applicaton fields
+	time_l1_time, time_l2_time, time_l3_time, time_l4_time, time_la_time, time_lb_time, time_lm_time, time_lc_time, 												-- Time fields
 	time_l1_total_time, time_l2_total_time, time_l3_total_time, time_l4_total_time, time_la_total_time, time_lb_total_time, time_lm_total_time, time_lc_total_time,
 	time_l1_beatmarker, time_l2_beatmarker, time_l3_beatmarker, time_l4_beatmarker, time_la_beatmarker, time_lb_beatmarker, time_lm_beatmarker, time_lc_beatmarker,
 	time_l1_state, time_l2_state, time_l3_state, time_l4_state, time_la_state, time_lb_state, time_lm_state, time_lc_state,
@@ -238,17 +258,20 @@ function tcnet_proto.dissector(buffer,pinfo,tree)
 		parse_optin(optintree, buffer)		
 	elseif message_type == 3 then
 		local optouttree = subtree:add(tcnet_proto,buffer(),"OptOut")
+		parse_optout(optouttree, buffer)
 	elseif message_type == 5 then
 		local statustree = subtree:add(tcnet_proto,buffer(),"Status")		
 		parse_status(statustree, buffer)	
 	elseif message_type == 30 then
 		local applicationtree = subtree:add(tcnet_proto,buffer(),"Application")
+		parse_application(applicationtree, buffer)	
 	elseif message_type == 254 then
 		local timetree = subtree:add(tcnet_proto,buffer(),"Time")
 		parse_time(timetree, buffer)	
 	end
 end
 
+-- TCNet Opt-IN Packet
 function parse_optin(localtree, buffer)
 	localtree:add_le(optin_node_count, buffer(24,2))
 	localtree:add_le(optin_listener_port, buffer(26,2))
@@ -260,6 +283,13 @@ function parse_optin(localtree, buffer)
 	localtree:add(buffer(67,1),"Reserverd: " .. buffer(67,1))
 end
 
+-- TCNet Opt-OUT Packet
+function parse_optout(localtree, buffer)
+	localtree:add_le(optout_node_count, buffer(24,2))
+	localtree:add_le(optout_listener_port, buffer(26,2))
+end	
+
+-- TCNet Status Packet
 function parse_status(localtree, buffer)
 	localtree:add_le(status_node_count, buffer(24,2))
 	localtree:add_le(status_listener_port, buffer(26,2))
@@ -314,6 +344,20 @@ function parse_status(localtree, buffer)
 	name:add(status_layerc_name, buffer(284,16))
 end
 
+-- TCNet Application Specific Data Packet
+function parse_application(localtree, buffer)	
+	localtree:add(application_dataidentifier1, buffer(24,1))
+	localtree:add(application_dataidentifier2, buffer(25,1))
+	localtree:add_le(application_datasize, buffer(26,4))
+	localtree:add_le(application_totalpackets, buffer(30,4))
+	localtree:add_le(application_packetno, buffer(34,4))
+	localtree:add_le(application_packetsignature, buffer(38,4))
+	
+	local data_size = buffer(26,4):le_uint()
+	localtree:add(buffer(42,data_size),"Data: " .. buffer(42,data_size))
+end
+
+-- TCNet Time Packet
 function parse_time(localtree, buffer)
 	local ltime = localtree:add(tcnet_proto,buffer(),"Time (ms)")	
 	ltime:add_le(time_l1_time, buffer(24,4))
