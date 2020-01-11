@@ -5,8 +5,10 @@
 -- GitHub: https://github.com/vanvught/h3dmx512-zip
 -- Website: http://www.orangepi-dmx.org/orange-pi-smpte-timecode-ltc-reader-converter/tcnet
 --
--- Done : OptIn, OptOut, Status, Time, Application, Time Sync, Error / Notification, Request
--- Todo : Control, TextData, KeyboardData, Data, DataFile
+-- Contributor: Michael Hicks
+--
+-- Done : OptIn, OptOut, Status, Time, Application, Time Sync, Error / Notification, Request, Control, TextData, KeyboardData
+-- ToDo : Data, DataFile
 --
 -- TCNet specification V3.3.3 11/11/2019 (https://www.tc-supply.com/tcnet)
 ----------------------------------------
@@ -16,9 +18,9 @@ local tcnet_proto = Proto("tcnet","TCNet Protocol")
 local message_types = {
 	[2] = "OptIn",
 	[3] = "OptOut",
-	[5] = "Status",
+  [5] = "Status",
 	[10] = "TimeSync" ,
-	[13] = "Error Notification",
+	[13] = "Error / Notification",
 	[20] = "Request",
 	[30] = "Application",
 	[101] = "Control",
@@ -26,7 +28,7 @@ local message_types = {
 	[132] = "KeyboardData", 
 	[200] = "Data", 
 	[204] = "DataFile", 
-	[254] = "Time",
+	[254] = "Time"
 }
 
 local node_types = {
@@ -36,13 +38,21 @@ local node_types = {
 	[8] = "Repeater"
 }
 
+local layer_source_name =   {
+  [0] = "Unselected",
+  [1] = "PRO DJ LINK ",
+  [2] = "TCNet",
+  [3] = "Internal",
+  [4] = "Disabled"
+}
+
 local layer_status = {
 	[0] = "IDLE",
 	[3] = "PLAYING",
 	[4] = "LOOPING",
 	[5] = "PAUSED",
 	[6] = "STOPPED",
-	[7] = "CUE BOTTON DOWN",
+	[7] = "CUE BUTTON DOWN",
 	[8] = "PLATTER DOWN",
 	[9] = "FFWD",
 	[10] = "FFRV",
@@ -50,30 +60,35 @@ local layer_status = {
 }
 
 local smpte_mode = {
-	[0] = "Global SMPTE Mode",
+	[0] = "General SMPTE Mode",
 	[24] = "24FPS",
 	[25] = "25FPS",
 	[29] = "29.7FPS",
 	[30] = "30FPS"
 }
 
-auto_master_mode = {
+local auto_master_mode = {
 	[0] = "Disabled",
 	[1] = "HTP Master",
 	[2] = "Link Master"
 }
 
-time_code_state = {
+local time_code_state = {
 	[0] = "Stopped",
 	[1] = "Running",
 	[2] = "Force Re sync"
 }
 
-error_notification_code = {
+local error_notification_code = {
 	[1] = "Request Unknown",
 	[13] = "Request Not Possible/Featured",
 	[14] = "Request Data = EMPTY",
 	[255] = "Request Response: OK"
+}
+
+local step_process = {
+  [0] = "Initialize", 
+  [1] = "Response"
 }
 
 -- Management Header fields
@@ -101,14 +116,14 @@ local optout_listener_port = ProtoField.uint16("tcnet.optout.listenerport", "Lis
 local status_node_count = ProtoField.uint16("tcnet.status.nodecount", "Node Count", base.DEC)
 local status_listener_port = ProtoField.uint16("tcnet.status.listenerport", "Listener Port", base.DEC)
 --
-local status_layer1_source = ProtoField.uint8("tcnet.status.layer1source", "1", base.DEC)
-local status_layer2_source = ProtoField.uint8("tcnet.status.layer2source", "2", base.DEC)
-local status_layer3_source = ProtoField.uint8("tcnet.status.layer3source", "3", base.DEC)
-local status_layer4_source = ProtoField.uint8("tcnet.status.layer4source", "4", base.DEC)
-local status_layera_source = ProtoField.uint8("tcnet.status.layerasource", "A", base.DEC)
-local status_layerb_source = ProtoField.uint8("tcnet.status.layerbsource", "B", base.DEC)
-local status_layerm_source = ProtoField.uint8("tcnet.status.layermsource", "M", base.DEC)
-local status_layerc_source = ProtoField.uint8("tcnet.status.layercsource", "C", base.DEC)
+local status_layer1_source = ProtoField.uint8("tcnet.status.layer1source", "1", base.DEC, layer_source_name)
+local status_layer2_source = ProtoField.uint8("tcnet.status.layer2source", "2", base.DEC, layer_source_name)
+local status_layer3_source = ProtoField.uint8("tcnet.status.layer3source", "3", base.DEC, layer_source_name)
+local status_layer4_source = ProtoField.uint8("tcnet.status.layer4source", "4", base.DEC, layer_source_name)
+local status_layera_source = ProtoField.uint8("tcnet.status.layerasource", "A", base.DEC, layer_source_name)
+local status_layerb_source = ProtoField.uint8("tcnet.status.layerbsource", "B", base.DEC, layer_source_name)
+local status_layerm_source = ProtoField.uint8("tcnet.status.layermsource", "M", base.DEC, layer_source_name)
+local status_layerc_source = ProtoField.uint8("tcnet.status.layercsource", "C", base.DEC, layer_source_name)
 --
 local status_layer1_status = ProtoField.uint8("tcnet.status.layer1status", "1", base.DEC, layer_status)
 local status_layer2_status = ProtoField.uint8("tcnet.status.layer2status", "2", base.DEC, layer_status)
@@ -140,28 +155,39 @@ local status_layerb_name = ProtoField.string("tcnet.status.layerbname", "B", bas
 local status_layerm_name = ProtoField.string("tcnet.status.layermname", "M", base.ASCII)
 local status_layerc_name = ProtoField.string("tcnet.status.layercname", "C", base.ASCII)
 
--- TCNet Time Sync Packet
+-- TCNet Time Sync Packet fields
 local timesync_step = ProtoField.uint8("tcnet.timesync.step", "STEP", base.DEC)
 local timesync_listener_port = ProtoField.uint16("tcnet.timesync.listenerport", "Listener Port", base.DEC)
 local timesync_remote_timestamp = ProtoField.uint32("tcnet.timesync.remotetimestamp", "Remote Timestamp", base.DEC)
 
--- TCNet Error / Notification
+-- TCNet Error / Notification Packet fields
 local errornotification_datatype = ProtoField.uint8("tcnet.errornotification.datatype", "DataType", base.HEX);
 local errornotification_layerid = ProtoField.uint8("tcnet.errornotification.layerid", "Layer ID", base.HEX);
 local errornotification_code = ProtoField.uint16("tcnet.errornotification.code", "Code", base.DEC, error_notification_code)
 local errornotification_messagetype = ProtoField.uint16("tcnet.errornotification.messagetype", "Message Type", base.DEC)
 
--- TCNet Request Packet
-local request_datatype = ProtoField.uint8("tcnet.request.datatype", "DataType", base.HEX);
-local request_layer = ProtoField.uint8("tcnet.request.layer", "Layer", base.DEC);
+-- TCNet Request Packet fields
+local request_datatype = ProtoField.uint8("tcnet.request.datatype", "DataType", base.HEX)
+local request_layer = ProtoField.uint8("tcnet.request.layer", "Layer", base.DEC)
 
 -- TCNet Application Specific Data Packet fields
-local application_dataidentifier1 = ProtoField.uint8("tcnet.application.dataidentifier1", "Data Identifier 1", base.DEC);
-local application_dataidentifier2 = ProtoField.uint8("tcnet.application.dataidentifier2", "Data Identifier 2", base.DEC);
+local application_dataidentifier1 = ProtoField.uint8("tcnet.application.dataidentifier1", "Data Identifier 1", base.DEC)
+local application_dataidentifier2 = ProtoField.uint8("tcnet.application.dataidentifier2", "Data Identifier 2", base.DEC)
 local application_datasize = ProtoField.uint32("tcnet.application.datasize", "Data Size", base.DEC)
 local application_totalpackets = ProtoField.uint32("tcnet.application.totalpackets", "Total Packets", base.DEC)
 local application_packetno = ProtoField.uint32("tcnet.application.packetno", "Packet No", base.DEC)
 local application_packetsignature = ProtoField.uint32("tcnet.application.packetsignature", "Packet Signature", base.DEC)
+
+-- TCNet Control Packet fields
+local control_step = ProtoField.uint8("tcnet.control.step", "STEP", base.DEC, step_process)
+local control_datasize = ProtoField.uint32("tcnet.control.datasize", "Data Size", base.DEC)
+
+-- TCNet Text Data Packet fields
+local textdata_step = ProtoField.uint8("tcnet.textdata.step", "STEP", base.DEC, step_process)
+local textdata_datasize = ProtoField.uint32("tcnet.textdata.datasize", "Data Size", base.DEC)
+
+-- TCNet Keyboard Data Packet fields
+local keyboarddata_datasize = ProtoField.uint32("tcnet.keyboarddata.datasize", "Data Size", base.DEC)
 
 -- TCNet Time Packet fields
 local time_l1_time = ProtoField.uint32("tcnet.time.l1time", "1", base.DEC)
@@ -230,20 +256,23 @@ local time_lm_onair = ProtoField.uint8("tcnet.time.lmonair", "M", base.DEC)
 local time_lc_onair = ProtoField.uint8("tcnet.time.lconair", "C", base.DEC) 
 
 tcnet_proto.fields = { 
-	node_id, header, message_type, node_name, seq, node_type, node_options, time_stamp,  																			-- Management Header
-	optin_node_count, optin_listener_port, optin_uptime, optin_vendor_name, optin_device_name,																		-- OptIn Fields
-	optout_node_count, optout_listener_port,																														-- OptOut Fields
-	status_node_count, status_listener_port, 																														-- Status Fields
+	node_id, header, message_type, node_name, seq, node_type, node_options, time_stamp,                                                                          -- Management Header
+	optin_node_count, optin_listener_port, optin_uptime, optin_vendor_name, optin_device_name,                                                                   -- OptIn Fields
+	optout_node_count, optout_listener_port,																                                                                                     -- OptOut Fields
+	status_node_count, status_listener_port, 															                                                                                       -- Status Fields
 	status_layer1_source, status_layer2_source, status_layer3_source, status_layer4_source, status_layera_source, status_layerb_source, status_layerm_source, status_layerc_source,
 	status_layer1_status, status_layer2_status, status_layer3_status, status_layer4_status, status_layera_status, status_layerb_status, status_layerm_status, status_layerc_status,
 	status_layer1_trackid, status_layer2_trackid, status_layer3_trackid, status_layer4_trackid, status_layera_trackid, status_layerb_trackid, status_layerm_trackid, status_layerc_trackid,
 	status_smpte_mode, status_auto_master_mode,
 	status_layer1_name, status_layer2_name, status_layer3_name, status_layer4_name, status_layera_name, status_layerb_name, status_layerm_name, status_layerc_name,
-	timesync_step, timesync_listener_port, timesync_remote_timestamp,																								-- Time Sync fields
-	errornotification_datatype, errornotification_layerid, errornotification_code, errornotification_messagetype,													-- Error / Notification fields
-	request_datatype, request_layer,																																-- Request fields
-	application_dataidentifier1, application_dataidentifier2, application_datasize, application_totalpackets, application_packetno, application_packetsignature,	-- Applicaton fields
-	time_l1_time, time_l2_time, time_l3_time, time_l4_time, time_la_time, time_lb_time, time_lm_time, time_lc_time, 												-- Time fields
+	timesync_step, timesync_listener_port, timesync_remote_timestamp,                                                                                            -- Time Sync fields
+	errornotification_datatype, errornotification_layerid, errornotification_code, errornotification_messagetype,                                                -- Error / Notification fields
+	request_datatype, request_layer,																																                                                             -- Request fields
+	application_dataidentifier1, application_dataidentifier2, application_datasize, application_totalpackets, application_packetno, application_packetsignature, -- Application fields
+	control_step, control_datasize,                                                                                                                              -- Control fields
+	textdata_step, textdata_datasize,                                                                                                                            -- Text Data fields
+	keyboarddata_datasize,                                                                                                                                       -- Keyboard Data fields
+	time_l1_time, time_l2_time, time_l3_time, time_l4_time, time_la_time, time_lb_time, time_lm_time, time_lc_time,                                              -- Time fields
 	time_l1_total_time, time_l2_total_time, time_l3_total_time, time_l4_total_time, time_la_total_time, time_lb_total_time, time_lm_total_time, time_lc_total_time,
 	time_l1_beatmarker, time_l2_beatmarker, time_l3_beatmarker, time_l4_beatmarker, time_la_beatmarker, time_lb_beatmarker, time_lm_beatmarker, time_lc_beatmarker,
 	time_l1_state, time_l2_state, time_l3_state, time_l4_state, time_la_state, time_lb_state, time_lm_state, time_lc_state,
@@ -258,7 +287,7 @@ function tcnet_proto.dissector(buffer, pinfo, tree)
   if length == 0 then return end
   -- We can do some more validation
   
-   pinfo.cols.protocol = "TCNET"
+  pinfo.cols.protocol = "TCNET"
   
   local subtree = tree:add(tcnet_proto,buffer(),"TCNet Protocol Data")
 	
@@ -273,36 +302,42 @@ function tcnet_proto.dissector(buffer, pinfo, tree)
 	managementtree:add_le(node_options, buffer(18,2))
 	managementtree:add_le(time_stamp, buffer(20,4))
 	
-	pinfo.cols.info = "Message Type: " .. message_types[buffer(7,1):uint()]
-	
-	-- Messsage Types
+	-- Message Types
 	local message_type = buffer(7,1):uint()
+	local message_type_text = message_types[message_type]
+	
+	if message_type_text == nil then
+	  message_type_text = "Not known / Not implemented"
+	end
+	
+	pinfo.cols.info = "Message Type: " .. message_type_text
+	
+	local messagetree = subtree:add(tcnet_proto,buffer(),message_type_text)
 	
 	if message_type == 254 then
-		local timetree = subtree:add(tcnet_proto,buffer(),"Time")
-		parse_time(timetree, buffer)	
+		parse_time(messagetree, buffer)	
 	elseif message_type == 5 then
-		local statustree = subtree:add(tcnet_proto,buffer(),"Status")		
-		parse_status(statustree, buffer)
+		parse_status(messagetree, buffer)
 	elseif message_type == 10 then
-		local timesynctree = subtree:add(tcnet_proto,buffer(),"Time Sync")
-		parse_timesync(timesynctree, buffer)	
+		parse_timesync(messagetree, buffer)	
 	elseif message_type == 13 then
-		local errornotificationtree = subtree:add(tcnet_proto,buffer(),"Error / Notification")
-		parse_errornotification(errornotificationtree, buffer)
+		parse_errornotification(messagetree, buffer)
 	elseif message_type == 20 then
-		local requesttree = subtree:add(tcnet_proto,buffer(),"Request")
-		parse_request(requesttree, buffer)
+		parse_request(messagetree, buffer)
 	elseif message_type == 30 then
-		local applicationtree = subtree:add(tcnet_proto,buffer(),"Application")
-		parse_application(applicationtree, buffer)
+		parse_application(messagetree, buffer)
 	elseif message_type == 2 then
-		local optintree = subtree:add(tcnet_proto,buffer(),"OptIn")
-		parse_optin(optintree, buffer)		
-	elseif message_type == 3 then
-		local optouttree = subtree:add(tcnet_proto,buffer(),"OptOut")
-		parse_optout(optouttree, buffer)
+		parse_optin(messagetree, buffer)	
+	elseif message_type == 101 then
+    parse_control(messagetree, buffer)	
+	elseif message_type == 128 then
+		parse_textdata(messagetree, buffer)
+  elseif message_type == 132 then
+    parse_keyboarddata(messagetree, buffer)
+  elseif message_type == 3 then
+    parse_optout(messagetree, buffer)
 	end
+	
 end
 
 -- TCNet Opt-IN Packet
@@ -411,6 +446,39 @@ function parse_application(localtree, buffer)
 	
 	local data_size = buffer(26,4):le_uint()
 	localtree:add(buffer(42,data_size),"Data: " .. buffer(42,data_size))
+end
+
+-- TCNet Control Packet
+function parse_control(localtree, buffer)
+  localtree:add(control_step, buffer(24,1))
+  localtree:add(buffer(25,1),"Reserverd: " .. buffer(25,1))
+  localtree:add_le(control_datasize, buffer(26,4))
+  localtree:add(buffer(30,12),"Reserverd: " .. buffer(30,12))
+  
+  local data_size = buffer(26,4):le_uint()
+  localtree:add(buffer(42,data_size),"Control Path: " .. buffer(42,data_size))
+end
+
+-- TCNet Text Data Packet 
+function parse_textdata(localtree, buffer)
+  localtree:add(textdata_step, buffer(24,1))
+  localtree:add(buffer(25,1),"Reserverd: " .. buffer(25,1))
+  localtree:add_le(textdata_datasize, buffer(26,4))
+  localtree:add(buffer(30,12),"Reserverd: " .. buffer(30,12))
+  
+  local data_size = buffer(26,4):le_uint()
+  localtree:add(buffer(42,data_size),"Text Data: " .. buffer(42,data_size))
+end
+
+-- TCNet Keyboard Data Packet
+function parse_keyboarddata(localtree, buffer)
+  localtree:add(buffer(24,1),"Reserverd: " .. buffer(24,1))
+  localtree:add(buffer(25,1),"Reserverd: " .. buffer(25,1))
+  localtree:add_le(keyboarddata_datasize, buffer(26,4))
+  localtree:add(buffer(30,12),"Reserverd: " .. buffer(30,12))
+  
+  local data_size = buffer(26,4):le_uint()
+  localtree:add(buffer(42,data_size),"Keyboard Data: " .. buffer(42,data_size))
 end
 
 -- TCNet Time Packet
