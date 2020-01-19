@@ -10,7 +10,7 @@
 -- Done : OptIn, OptOut, Status, Time, Application, Time Sync, Error / Notification, Request, Control, TextData, KeyboardData
 -- ToDo : Data, DataFile
 --
--- TCNet specification V3.3.3 11/11/2019 (https://www.tc-supply.com/tcnet)
+-- TCNet specification V3.4.1 – 12/03/2019 (BETA!) (https://www.tc-supply.com/tcnet)
 ----------------------------------------
 
 local tcnet_proto = Proto("tcnet","TCNet Protocol")
@@ -29,6 +29,22 @@ local message_types = {
 	[200] = "Data", 
 	[204] = "DataFile", 
 	[254] = "Time"
+}
+
+local message_length = { -- Minimum size
+  [2] = 68,
+  [3] = 28,
+  [5] = 300,
+  [10] = 32,
+  [13] = 30,
+  [20] = 26,
+  [30] = 42,
+  [101] = 42,
+  [128] = 42, 
+  [132] = 44, 
+  [200] = 65535, -- Multiple sub messages 
+  [204] = 42, 
+  [254] = 162
 }
 
 local node_types = {
@@ -63,7 +79,7 @@ local smpte_mode = {
 	[0] = "General SMPTE Mode",
 	[24] = "24FPS",
 	[25] = "25FPS",
-	[29] = "29.7FPS",
+	[29] = "29.97FPS",
 	[30] = "30FPS"
 }
 
@@ -284,9 +300,9 @@ tcnet_proto.fields = {
 					
 function tcnet_proto.dissector(buffer, pinfo, tree)
   length = buffer:len()
+ 
   if length == 0 then return end
-  -- We can do some more validation
-  
+
   pinfo.cols.protocol = "TCNET"
   
   local subtree = tree:add(tcnet_proto,buffer(),"TCNet Protocol Data")
@@ -314,6 +330,11 @@ function tcnet_proto.dissector(buffer, pinfo, tree)
 	
 	local messagetree = subtree:add(tcnet_proto,buffer(),message_type_text)
 	
+	if length < message_length[message_type] then
+    messagetree:add_expert_info(PI_MALFORMED, PI_ERROR, "The TCNet packet is malformed")
+    return;
+	end
+	
 	if message_type == 254 then
 		parse_time(messagetree, buffer)	
 	elseif message_type == 5 then
@@ -338,6 +359,17 @@ function tcnet_proto.dissector(buffer, pinfo, tree)
     parse_optout(messagetree, buffer)
 	end
 	
+end
+
+function check_data_size(localtree, data_size, size)
+  if data_size + size == length then
+     return true
+  end
+  
+  localtree:add_expert_info(PI_PROTOCOL, PI_WARN, "Data Size does not match with message length")
+  localtree:add("Data Size expected: " .. length - size)
+  
+  return false
 end
 
 -- TCNet Opt-IN Packet
@@ -445,7 +477,10 @@ function parse_application(localtree, buffer)
 	localtree:add_le(application_packetsignature, buffer(38,4))
 	
 	local data_size = buffer(26,4):le_uint()
-	localtree:add(buffer(42,data_size),"Data: " .. buffer(42,data_size))
+	
+	if check_data_size(localtree,data_size,42) then
+	 localtree:add(buffer(42,data_size),"Data: " .. buffer(42,data_size))
+	end
 end
 
 -- TCNet Control Packet
@@ -456,7 +491,10 @@ function parse_control(localtree, buffer)
   localtree:add(buffer(30,12),"Reserverd: " .. buffer(30,12))
   
   local data_size = buffer(26,4):le_uint()
-  localtree:add(buffer(42,data_size),"Control Path: " .. buffer(42,data_size))
+  
+  if check_data_size(localtree,data_size,42) then
+    localtree:add(buffer(42,data_size),"Control Path: " .. buffer(42,data_size))
+  end
 end
 
 -- TCNet Text Data Packet 
@@ -467,7 +505,10 @@ function parse_textdata(localtree, buffer)
   localtree:add(buffer(30,12),"Reserverd: " .. buffer(30,12))
   
   local data_size = buffer(26,4):le_uint()
-  localtree:add(buffer(42,data_size),"Text Data: " .. buffer(42,data_size))
+  
+  if check_data_size(localtree,data_size,42) then
+    localtree:add(buffer(42,data_size),"Text Data: " .. buffer(42,data_size))
+  end
 end
 
 -- TCNet Keyboard Data Packet
@@ -478,7 +519,10 @@ function parse_keyboarddata(localtree, buffer)
   localtree:add(buffer(30,12),"Reserverd: " .. buffer(30,12))
   
   local data_size = buffer(26,4):le_uint()
-  localtree:add(buffer(42,data_size),"Keyboard Data: " .. buffer(42,data_size))
+  
+  if check_data_size(localtree,data_size,42) then
+   localtree:add(buffer(42,data_size),"Keyboard Data: " .. buffer(42,data_size))
+  end
 end
 
 -- TCNet Time Packet
