@@ -19,3 +19,7 @@ zero_board.s#*
 zero_board.so*
 zero_board.st*
 *.epf
+*.csv
+*.ods
+*.mnb
+*.mnt
