@@ -23,3 +23,5 @@ zero_board.st*
 *.ods
 *.mnb
 *.mnt
+*.CFG
+*.job
