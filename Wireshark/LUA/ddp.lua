@@ -29,9 +29,11 @@ local id = ProtoField.uint8("ddp.header.id", "Id", base.DEC, ids)
 local offset = ProtoField.uint32("ddp.header.offset", "Offset", base.DEC)
 local len = ProtoField.uint16("ddp.header.len", "Length", base.DEC)
 
+local json = ProtoField.string("ddp.data.json", "JSON")
+
 ddp_proto.fields = { 
 	flags1_version, flags1_push, flags1_query, flags1_reply, flags1_storage, flags1_time,
-	flags2, message_type, id, offset, len
+	flags2, message_type, id, offset, len, json
 }
 					
 function ddp_proto.dissector(buffer, pinfo, tree)
@@ -43,7 +45,7 @@ function ddp_proto.dissector(buffer, pinfo, tree)
   
  	local subtree = tree:add(ddp_proto,buffer(),"Distributed Display Protocol Data")
 	
-	local managementtree = subtree:add(ddp_proto,buffer(),"Header")
+	local managementtree = subtree:add(ddp_proto,buffer(0,10),"Header")
 	
 	local flags1tree = managementtree:add(ddp_proto,buffer(),"Flags1")
 	flags1tree:add(flags1_version, buffer(0,1))
@@ -70,7 +72,10 @@ function ddp_proto.dissector(buffer, pinfo, tree)
 		
 	pinfo.cols.info = "Id: " .. id_text
 
-	local messagetree = subtree:add(ddp_proto,buffer(),id_text)
+	if (length > 10) then
+		local messagetree = tree:add(ddp_proto,buffer(10),id_text)
+		messagetree:add(json, buffer(10))
+	end
 
 end
 
