@@ -1,5 +1,5 @@
 # Orange Pi Zero / Orange Pi One
-Open Source and Open Hardware.
+Open Source and Open Source Hardware.
 <br>
 ## SDCard
 
@@ -25,12 +25,11 @@ Orange Pi One: From the zip file, copy file `orangepi_one.uImage.gz` to the SDCa
 
 * **Ethernet**
   * **Art-Net 4**
-      * Pixel controller **WS28xx/SK6812/APA102/UCSx903/P9813** [Orange Pi Zero]
-         * 1x 4 Universes {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_artnet_pixel.zip?raw=true)}
-         * 4x 4 Universes {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_artnet_pixel_multi.zip?raw=true)}
-         * 8x 4 Universes {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_artnet_pixel_multi.zip?raw=true)}
+      * Pixel controller **WS28xx/SK6812/APA102/UCSx903/P9813** with DMX [Orange Pi Zero]
+         * 1x 4 Universes [1x DMX] {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_artnet_pixel_dmx.zip?raw=true)}
+         * 8x 4 Universes [2x DMX] {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_artnet_pixel_dmx_multi.zip?raw=true)}
       * DMX Input/Output Node / **RDM** Controller
-         *  1 Port DMX {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_artnet_dmx.zip?raw=true)} {*Orange Pi Zero*}
+         *  1 Port {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_artnet_dmx.zip?raw=true)} {*Orange Pi Zero*}
          *  2 Ports {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_artnet_dmx_multi.zip?raw=true)} {*Orange Pi Zero*}
          *  4 Ports {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_artnet_dmx_multi.zip?raw=true)} {*Orange Pi One*}
       * **Real-time Monitor** 1 Universe {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_artnet_monitor.zip?raw=true)} {*Orange Pi One - HDMI output*}
@@ -38,19 +37,21 @@ Orange Pi One: From the zip file, copy file `orangepi_one.uImage.gz` to the SDCa
          * Sparkfun AutoDriver chaining {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_artnet_rdm_l6470.zip?raw=true)} {*Orange Pi Zero*}
          * Roboteurs SlushEngine Model X LT {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_artnet_rdm_l6470.zip?raw=true)} {*Orange Pi One*}
   * **sACN E1.31** 
-      * Pixel Controller **WS28xx/SK6812/APA102/UCSx903/P9813** [Orange Pi Zero]
-         *  1x 4 Universes {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_e131_dmx.zip?raw=true)}
-         *  4x 4 Universes {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_e131_pixel_multi.zip?raw=true)} 
-         *  8x 4 Universes {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_e131_pixel_multi.zip?raw=true)}
-      * DMX Input/Output Bridge
-         *  1 Port DMX {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_e131_dmx.zip?raw=true)} {*Orange Pi Zero*}
+      * Pixel Controller **WS28xx/SK6812/APA102/UCSx903/P9813** with DMX [Orange Pi Zero]
+         *  1x 4 Universes [1x DMX] {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_e131_pixel_dmx.zip?raw=true)}
+         *  8x 4 Universes [2x DMX] {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_e131_pixel_dxm_multi.zip?raw=true)}
+      * DMX Input / Output Bridge
          *  2 Ports {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_e131_dmx_multi.zip?raw=true)} {*Orange Pi Zero*}
          *  4 Ports {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_e131_dmx_multi.zip?raw=true)} {*Orange Pi One*}
       * **Real-time Monitor** 1 Universe {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_e131_monitor.zip?raw=true)} {*Orange Pi One - HDMI output*}
       * **Art-Net** converter 4/32 Universes {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_e131_artnet.zip?raw=true)} {*Orange Pi Zero*}
+  * **Distributed Display Protocol (DDP)**
+      *  Pixel Controller **WS28xx/SK6812/APA102/UCSx903/P9813** with DMX [Orange Pi Zero]
+         * 8x 680 RGB or 8x 512 RGBW [2x DMX Out] {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_e131_pixel_dxm_multi.zip?raw=true)}
   * **OSC** 
-      * DMX Bridge / **Pixel Controller (WS28xx/SK6812/APA102/UCSx903/P9813)** {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_osc_dmx.zip?raw=true)}
-      * **Client** with support for buttons {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_osc_client.zip?raw=true)}
+      * DMX Bridge {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_osc_dmx.zip?raw=true)}
+      * Pixel Controller (WS28xx/SK6812/APA102/UCSx903/P9813) {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_osc_pixel.zip?raw=true)}
+      * Client with support for buttons {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_osc_client.zip?raw=true)}
       * **Real-time Monitor** 1 Universe {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_osc_monitor.zip?raw=true)} {*Orange Pi One - HDMI output*}
   * **Showfile**
       *  **Player** {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_showfile.zip?raw=true)}
@@ -67,8 +68,6 @@ Orange Pi One: From the zip file, copy file `orangepi_one.uImage.gz` to the SDCa
 * **MIDI**
   *  **Real-time Monitor** {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_midi_monitor.zip?raw=true)}  {*Orange Pi One - HDMI output*}
 
-
-Current limitation Ethernet versions: All nodes must be in the same network
 
 All implementations are fully according to the standards.
 <br>
