@@ -9,17 +9,19 @@ U-Boot Orange Pi Zero: [uboot-orangpi_zero.zip](https://github.com/vanvught/h3dm
 
 U-Boot Orange Pi One: [uboot-orangpi_one.zip](https://github.com/vanvught/h3dmx512-zip/blob/master/uboot-orangpi_one.zip?raw=true)
 
-	When not using the latest uboot-*.zip then update SPI flash 
-
-Orange Pi Zero: From [uboot-spi.zip](https://github.com/vanvught/h3dmx512-zip/blob/master/uboot-spi.zip?raw=true), copy file `uboot_zero.spi` to SDCard as `uboot.spi`
-
-Orange Pi One: From [uboot-spi.zip](https://github.com/vanvught/h3dmx512-zip/blob/master/uboot-spi.zip?raw=true), copy file `uboot_one.spi` to SDCard as `uboot.spi` 
-
 **Firmware uImage**
 
 Orange Pi Zero: From the zip file, copy file `orangepi_zero.uImage.gz` to the SDCard as `uImage`
 
 Orange Pi One: From the zip file, copy file `orangepi_one.uImage.gz` to the SDCard as `uImage`
+
+**Not new users**
+
+	When not using the latest uboot-*.zip then update SPI flash 
+
+Orange Pi Zero: From [uboot-spi.zip](https://github.com/vanvught/h3dmx512-zip/blob/master/uboot-spi.zip?raw=true), copy file `uboot_zero.spi` to SDCard as `uboot.spi`
+
+Orange Pi One: From [uboot-spi.zip](https://github.com/vanvught/h3dmx512-zip/blob/master/uboot-spi.zip?raw=true), copy file `uboot_one.spi` to SDCard as `uboot.spi` 
 
 ## Firmware uImage
 
@@ -39,7 +41,7 @@ Orange Pi One: From the zip file, copy file `orangepi_one.uImage.gz` to the SDCa
   * **sACN E1.31** 
       * Pixel Controller **WS28xx/SK6812/APA102/UCSx903/P9813** with DMX [Orange Pi Zero]
          *  1x 4 Universes [1x DMX] {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_e131_pixel_dmx.zip?raw=true)}
-         *  8x 4 Universes [2x DMX] {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_e131_pixel_dxm_multi.zip?raw=true)}
+         *  8x 4 Universes [2x DMX] {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_e131_pixel_dmx_multi.zip?raw=true)}
       * DMX Input / Output Bridge
          *  2 Ports {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_e131_dmx_multi.zip?raw=true)} {*Orange Pi Zero*}
          *  4 Ports {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_e131_dmx_multi.zip?raw=true)} {*Orange Pi One*}
@@ -47,7 +49,7 @@ Orange Pi One: From the zip file, copy file `orangepi_one.uImage.gz` to the SDCa
       * **Art-Net** converter 4/32 Universes {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_e131_artnet.zip?raw=true)} {*Orange Pi Zero*}
   * **Distributed Display Protocol (DDP)**
       *  Pixel Controller **WS28xx/SK6812/APA102/UCSx903/P9813** with DMX [Orange Pi Zero]
-         * 8x 680 RGB or 8x 512 RGBW [2x DMX Out] {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_e131_pixel_dxm_multi.zip?raw=true)}
+         * 8x 680 RGB or 8x 512 RGBW [2x DMX Out] {[https://github.com/vanvught/rpidmx512/issues/188](https://github.com/vanvught/rpidmx512/issues/188)}
   * **OSC** 
       * DMX Bridge {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_osc_dmx.zip?raw=true)}
       * Pixel Controller (WS28xx/SK6812/APA102/UCSx903/P9813) {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_osc_pixel.zip?raw=true)}
