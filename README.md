@@ -11,9 +11,9 @@ U-Boot Orange Pi One: [uboot-orangpi_one.zip](https://github.com/vanvught/h3dmx5
 
 **Firmware uImage**
 
-Orange Pi Zero: From the zip file, copy file `orangepi_zero.uImage.gz` to the SDCard as `uImage`
+Orange Pi Zero: From the zip file, copy file `orangepi_zero.uImage.gz`to the SDCard and rename to `uImage`
 
-Orange Pi One: From the zip file, copy file `orangepi_one.uImage.gz` to the SDCard as `uImage`
+Orange Pi One: From the zip file, copy file `orangepi_one.uImage.gz`to the SDCard and rename to `uImage`
 
 **Not new users**
 
