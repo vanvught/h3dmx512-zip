@@ -49,7 +49,7 @@ Orange Pi One: From [uboot-spi.zip](https://github.com/vanvught/h3dmx512-zip/blo
       * **Art-Net** converter 4/32 Universes {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_e131_artnet.zip?raw=true)} {*Orange Pi Zero*}
   * **Distributed Display Protocol (DDP)**
       *  Pixel Controller **WS28xx/SK6812/APA102/UCSx903/P9813** with DMX [Orange Pi Zero]
-         * 8x 680 RGB or 8x 512 RGBW [2x DMX Out] {[https://github.com/vanvught/rpidmx512/issues/188](https://github.com/vanvught/rpidmx512/issues/188)}
+         * 8x 680 RGB or 8x 512 RGBW [2x DMX Out] {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_ddp_pixel_dmx_multi.zip?raw=true)}
   * **OSC** 
       * DMX Bridge {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_osc_dmx.zip?raw=true)}
       * Pixel Controller (WS28xx/SK6812/APA102/UCSx903/P9813) {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_osc_pixel.zip?raw=true)}
