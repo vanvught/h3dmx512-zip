@@ -1,3 +1,7 @@
+![GitHub](https://img.shields.io/github/license/vanvught/h3dmx512-zip)
+![GitHub issues](https://img.shields.io/github/issues-raw/vanvught/h3dmx512-zip)
+![GitHub Sponsors](https://img.shields.io/github/sponsors/vanvught)
+
 # Orange Pi Zero / Orange Pi One
 Open Source and Open Source Hardware.
 <br>
