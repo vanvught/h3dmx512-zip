@@ -27,6 +27,9 @@ Orange Pi Zero: From [uboot-spi.zip](https://github.com/vanvught/h3dmx512-zip/bl
 
 Orange Pi One: From [uboot-spi.zip](https://github.com/vanvught/h3dmx512-zip/blob/master/uboot-spi.zip?raw=true), copy file `uboot_one.spi` to SDCard as `uboot.spi` 
 
+## Remote Configuration Manager
+[https://github.com/vanvught/Remote-Config-UI/releases](https://github.com/vanvught/Remote-Config-UI/releases)
+
 ## Firmware uImage
 
 * **Ethernet**
