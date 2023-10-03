@@ -4,12 +4,15 @@ This board provides 2 independent DMX in/out Lines for use with OrangePi Zero.
 
 ## The Board
 **Pics**
+
 ![boardpic](board.png "Board")
 
 **Shematic**
+
 ![shematic](shematic.png "Shematic")
 
 **Pinout**
+
 * CN1 is for Power (5V,GND)
 	* 1 -> 5V
 	* 2 -> GND
@@ -32,4 +35,5 @@ This board provides 2 independent DMX in/out Lines for use with OrangePi Zero.
 	* 4 -> GND
 	
 **BOM**
+
 BOM is also included, LCSC Parts.
