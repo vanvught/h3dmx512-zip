@@ -7,7 +7,7 @@ This board provides 2 independent DMX in/out Lines for use with OrangePi Zero.
 
 ![boardpic](board.png "Board")
 
-**Shematic**
+**Schematic**
 
 ![shematic](shematic.png "Shematic")
 
@@ -37,3 +37,31 @@ This board provides 2 independent DMX in/out Lines for use with OrangePi Zero.
 **BOM**
 
 BOM is also included, LCSC Parts.
+<br>
+
+
+## Case
+I created a case for the complete interface:
+
+https://github.com/pilo1337/h3dmx512-zip/assets/59642862/fdcd5daf-f60f-4720-9d57-ef3b5007a06b
+
+you will find the files in the STL folder. You can choose between a complete closed lid, slotted lid and a lid with slots/oled display (mine)
+
+<br>
+
+## assembled
+
+**Board**
+![Board](Pictures/board.jpg "Board")
+![Board_Assembled](Pictures/board-assembled.jpg "Board_assembled")
+
+**whole interface**
+![Interface-Inside1](Pictures/interface-inside1.jpg "Interface-Inside1")
+![Interface-Inside2](Pictures/interface-inside2.jpg "InterfaceInside-2")
+![Interface1](Pictures/interface1.jpg "Interface1")
+![Interface2](Pictures/interface2.jpg "Interface2")
+![Interface3](Pictures/interface3.jpg "Interface3")
+![Interface4](Pictures/interface4.jpg "Interface4")
+
+
+## thanks to @vanvught for this awesome code!
