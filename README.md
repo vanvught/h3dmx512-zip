@@ -20,14 +20,6 @@ Orange Pi Zero: From the zip file, copy file `orangepi_zero.uImage.gz`to the SDC
 
 Orange Pi One: From the zip file, copy file `orangepi_one.uImage.gz`to the SDCard and rename to `uImage`
 
-**Not new users**
-
-	When not using the latest uboot-*.zip then update SPI flash 
-
-Orange Pi Zero: From [uboot-spi.zip](https://github.com/vanvught/h3dmx512-zip/blob/master/uboot-spi.zip?raw=true), copy file `uboot_zero.spi` to SDCard as `uboot.spi`
-
-Orange Pi One: From [uboot-spi.zip](https://github.com/vanvught/h3dmx512-zip/blob/master/uboot-spi.zip?raw=true), copy file `uboot_one.spi` to SDCard as `uboot.spi` 
-
 ## Firmware uImage
 
 * **Ethernet**
