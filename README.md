@@ -67,21 +67,20 @@ Orange Pi One: From the zip file, copy file `orangepi_one.uImage.gz`to the SDCar
 * **MIDI**
   *  **Real-time Monitor** {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_midi_monitor.zip?raw=true)}  {*Orange Pi One - HDMI output*}
 
-
 All implementations are fully according to the standards.
 <br>
 
-* **Wifi**
-  * **Art-Net 3** DMX Node / RDM Controller / Pixel Controller (WS28xx/SK6812/APA102/UCSx903) {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_wifi_artnet_dmx.zip?raw=true)} {*Orange Pi Zero*}
-  * **sACN E1.31** DMX Bridge  / Pixel Controller (WS28xx/SK6812/APA102/UCSx903) {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_wifi_e131_dmx.zip?raw=true)} {*Orange Pi Zero*}
-  * **OSC** DMX Bridge / Pixel Controller (WS28xx/SK6812/APA102/UCSx903) {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_wifi_osc_dmx.zip?raw=true)} {*Orange Pi Zero*}
- 
-
 Detailed information can be found here : [http://www.orangepi-dmx.org](http://www.orangepi-dmx.org)
+
+## Orange Pi Firmware Update UI
+[https://github.com/vanvught/h3dmx512-Firmware-Update-UI/releases](https://github.com/vanvught/h3dmx512-Firmware-Update-UI/releases)<br>
+<img alt="GitHub release" src="https://img.shields.io/github/v/release/vanvught/h3dmx512-Firmware-Update-UI">
+<br>
 
 ## Remote Configuration Manager
 [https://github.com/vanvught/Remote-Config-UI/releases](https://github.com/vanvught/Remote-Config-UI/releases)<br>
 <img alt="GitHub release" src="https://img.shields.io/github/v/release/vanvught/Remote-Config-UI">
 <br>
+
 ## Wireshark LUA plugin's
 [https://github.com/vanvught/wireshark](https://github.com/vanvught/wireshark)
