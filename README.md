@@ -34,7 +34,6 @@ Orange Pi One: From the zip file, copy file `orangepi_one.uImage.gz`to the SDCar
       * **Real-time Monitor** 1 Universe {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_artnet_monitor.zip?raw=true)} {*Orange Pi One - HDMI output*}
      * Stepper controller **L6470 RDM**
          * Sparkfun AutoDriver chaining {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_artnet_rdm_l6470.zip?raw=true)} {*Orange Pi Zero*}
-         * Roboteurs SlushEngine Model X LT {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_artnet_rdm_l6470.zip?raw=true)} {*Orange Pi One*}
   * **sACN E1.31** 
       * Pixel Controller **WS28xx/SK6812/APA102/UCSx903/P9813** with DMX [Orange Pi Zero]
          *  1x 4 Universes [1x DMX] {[zip](https://github.com/vanvught/h3dmx512-zip/blob/master/opi_emac_e131_pixel_dmx.zip?raw=true)}
