@@ -76,7 +76,7 @@ Detailed information can be found here : [http://www.orangepi-dmx.org](http://ww
 <img alt="GitHub release" src="https://img.shields.io/github/v/release/vanvught/h3dmx512-Firmware-Update-UI">
 <br>
 
-## Remote Configuration Manager
+## Remote Configuration Manager [Legacy]
 [https://github.com/vanvught/Remote-Config-UI/releases](https://github.com/vanvught/Remote-Config-UI/releases)<br>
 <img alt="GitHub release" src="https://img.shields.io/github/v/release/vanvught/Remote-Config-UI">
 <br>
